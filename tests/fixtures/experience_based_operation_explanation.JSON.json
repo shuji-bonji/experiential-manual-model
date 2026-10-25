@@ -1,0 +1,2022 @@
+{
+  "purchaseTypes": [
+    {
+      "titleID": "title01",
+      "title": "乗換案内からきっぷを購入",
+      "description": "高崎から山寺までの列車を発時刻で検索して、新幹線指定席特急券、片道乗車券を購入してみましょう。",
+      "screens": [
+        {
+          "screenID": "screen01",
+          "caption": "STEP1",
+          "description": "ご希望のボタンを選びます。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/timetable_slide01.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [653, 177, 1203, 364]
+            }
+          ]
+        },
+        {
+          "screenID": "screen02",
+          "caption": "STEP2",
+          "description": "到着駅を選択します。",
+          "supplementaryExplanation": "出発駅は現在地、利用日時は現在時刻があらかじめ入力されていますが、変更することも可能です。変更する場合は、それぞれの「変更する」ボタンにタッチします。",
+          "imageUrl": "img/timetable_slide02.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [1068, 323, 1196, 391]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen01",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen03",
+          "caption": "STEP3",
+          "description": "到着駅名の一部をかなで入力します。",
+          "supplementaryExplanation": "かな検索により到着駅名を絞り込みます。",
+          "imageUrl": "img/timetable_slide03.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [990, 879, 1188, 956]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [98, 882, 265, 954]
+            }
+          ]
+        },
+        {
+          "screenID": "screen04",
+          "caption": "STEP4",
+          "description": "到着駅を選択します。",
+          "supplementaryExplanation": "絞り込まれた駅名候補から乗車券の着駅を選択します。",
+          "imageUrl": "img/timetable_slide04.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [488, 250, 785, 426]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [100, 882, 266, 954]
+            }
+          ]
+        },
+        {
+          "screenID": "screen05",
+          "caption": "STEP5",
+          "description": "検索を開始します。",
+          "supplementaryExplanation": "入力した条件で検索を行います。（ここでは、高崎→山寺のきっぷを購入します。）",
+          "imageUrl": "img/timetable_slide05.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [1072, 844, 1268, 918]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen06",
+          "caption": "STEP6",
+          "description": "列車の組み合わせを選択します。",
+          "supplementaryExplanation": "ご希望の組み合わせを選びます。また、時刻の変更や乗換えをしない区間の指定も可能です。",
+          "imageUrl": "img/timetable_slide06.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [495, 851, 785, 915]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen07",
+          "caption": "STEP7",
+          "description": "購入するきっぷの種類を選択します。",
+          "supplementaryExplanation": "選択した列車で良ければ購入するきっぷの種類を選択します。",
+          "imageUrl": "img/timetable_slide07.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [612, 386, 1227, 516]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen08",
+          "caption": "STEP8",
+          "description": "先にお乗りになる列車の設備を選択します。",
+          "supplementaryExplanation": "先にお乗りになる列車の設備を選択後、後にお乗りになる列車の設備を選択します。",
+          "imageUrl": "img/timetable_slide08.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen09",
+              "coords": [588, 285, 671, 351]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen09",
+          "caption": "STEP9",
+          "description": "選択した列車の設備を確認します。",
+          "supplementaryExplanation": "確認画面が表示されますので、「確認」ボタンにタッチします。",
+          "imageUrl": "img/timetable_slide09.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [1071, 843, 1266, 915]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen10",
+          "caption": "STEP10",
+          "description": "先にお乗りになる列車の希望の座席を選択します。",
+          "supplementaryExplanation": "A席やE席といった指定のほか、座席表による座席位置の指定も可能です。（一部の列車では、座席表による座席指定はできません）",
+          "imageUrl": "img/timetable_slide10.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [1000, 340, 1105, 442]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen09",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen11",
+          "caption": "STEP11",
+          "description": "後にお乗りになる列車の希望の座席を選択します。",
+          "supplementaryExplanation": "A席やE席といった指定のほか、座席表による座席位置の指定も可能です。（一部の列車では、座席表による座席指定はできません）",
+          "imageUrl": "img/timetable_slide11.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [1123, 342, 1228, 441]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen12",
+          "caption": "STEP12",
+          "description": "乗車券について片道か往復かを選択します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/timetable_slide12.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen13",
+              "coords": [904, 375, 1037, 437]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen13",
+          "caption": "STEP13",
+          "description": "内容を確認します。",
+          "supplementaryExplanation": "今まで選択した内容が表示されます。",
+          "imageUrl": "img/timetable_slide23.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen14",
+              "coords": [1072, 844, 1268, 917]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen14",
+          "caption": "STEP14",
+          "description": "現金またはカードをお入れください。",
+          "supplementaryExplanation": "現金またはクレジットカードによる決済が終了すると発券されます。",
+          "imageUrl": "img/timetable_slide24.png",
+          "buttons": [
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "titleID": "title02",
+      "title": "乗換案内からきっぷを購入（列車を変更する場合）",
+      "description": "高崎から山寺までの列車を発時刻で検索して、新幹線指定席特急券、片道乗車券を購入してみましょう。列車の変更操作も体験できます。",
+      "screens": [
+        {
+          "screenID": "screen01",
+          "caption": "STEP1",
+          "description": "ご希望のボタンを選びます。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/timetable_slide01.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [653, 177, 1203, 364]
+            }
+          ]
+        },
+        {
+          "screenID": "screen02",
+          "caption": "STEP2",
+          "description": "到着駅を選択します。",
+          "supplementaryExplanation": "出発駅は現在地、利用日時は現在時刻があらかじめ入力されていますが、変更することも可能です。変更する場合は、それぞれの「変更する」ボタンにタッチします。",
+          "imageUrl": "img/timetable_slide02.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [1068, 323, 1196, 391]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen01",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen03",
+          "caption": "STEP3",
+          "description": "到着駅名の一部をかなで入力します。",
+          "supplementaryExplanation": "かな検索により到着駅名を絞り込みます。",
+          "imageUrl": "img/timetable_slide03.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [990, 879, 1188, 956]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [98, 882, 265, 954]
+            }
+          ]
+        },
+        {
+          "screenID": "screen04",
+          "caption": "STEP4",
+          "description": "到着駅を選択します。",
+          "supplementaryExplanation": "絞り込まれた駅名候補から乗車券の着駅を選択します。",
+          "imageUrl": "img/timetable_slide04.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [488, 250, 785, 426]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [100, 882, 266, 954]
+            }
+          ]
+        },
+        {
+          "screenID": "screen05",
+          "caption": "STEP5",
+          "description": "検索を開始します。",
+          "supplementaryExplanation": "入力した条件で検索を行います。（ここでは、高崎→山寺のきっぷを購入します。）",
+          "imageUrl": "img/timetable_slide05.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [1072, 844, 1268, 918]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen06",
+          "caption": "STEP6",
+          "description": "列車の組み合わせを選択します。",
+          "supplementaryExplanation": "ご希望の組み合わせを選びます。また、時刻の変更や乗換えをしない区間の指定も可能です。",
+          "imageUrl": "img/timetable_slide06.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [495, 851, 785, 915]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen07",
+          "caption": "STEP7",
+          "description": "購入するきっぷの種類を選択します。",
+          "supplementaryExplanation": "別の列車を変更する場合は「列車を変更する」ボタンにタッチしてください。",
+          "imageUrl": "img/timetable_slide07.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [612, 386, 1227, 516]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen08",
+          "caption": "STEP8",
+          "description": "変更する列車を選択します。",
+          "supplementaryExplanation": "変更したい列車を選んで「列車を変更する」ボタンにタッチします。",
+          "imageUrl": "img/timetable_slide14.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen09",
+              "coords": [1089, 820, 1236, 873]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen09",
+          "caption": "STEP9",
+          "description": "ご希望の列車を選択します。",
+          "supplementaryExplanation": "お乗りになる列車を選んでボタンにタッチします。",
+          "imageUrl": "img/timetable_slide15.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [1137, 390, 1238, 453]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen10",
+          "caption": "STEP10",
+          "description": "変更した列車を決定します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/timetable_slide16.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [1090, 819, 1236, 871]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        },
+        {
+          "screenID": "screen11",
+          "caption": "STEP11",
+          "description": "選択した列車で良ければ購入するきっぷの種類を選択します。また、再度列車を変更することも可能です。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/timetable_slide17.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [614, 386, 1233, 517]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen12",
+          "caption": "STEP12",
+          "description": "先にお乗りになる列車の設備を選択します。",
+          "supplementaryExplanation": "先にお乗りになる列車の設備を選択後、後にお乗りになる列車の設備を選択します。",
+          "imageUrl": "img/timetable_slide18.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen13",
+              "coords": [586, 284, 672, 353]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen13",
+          "caption": "STEP13",
+          "description": "選択した列車の設備を確認します。",
+          "supplementaryExplanation": "確認画面が表示されますので、「確認」ボタンにタッチします。",
+          "imageUrl": "img/timetable_slide09.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen14",
+              "coords": [1071, 843, 1266, 915]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen14",
+          "caption": "STEP14",
+          "description": "先にお乗りになる列車の希望の座席を選択します。",
+          "supplementaryExplanation": "A席やE席といった指定のほか、座席表による座席位置の指定も可能です。（一部の列車では、座席表による座席指定はできません）",
+          "imageUrl": "img/timetable_slide20.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen15",
+              "coords": [1121, 338, 1226, 441, 15]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen13",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen15",
+          "caption": "STEP15",
+          "description": "後にお乗りになる列車の希望の座席を選択します。",
+          "supplementaryExplanation": "A席やE席といった指定のほか、座席表による座席位置の指定も可能です。（一部の列車では、座席表による座席指定はできません）",
+          "imageUrl": "img/timetable_slide21.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen16",
+              "coords": [1121, 338, 1226, 441, 15]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen14",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen16",
+          "caption": "STEP16",
+          "description": "乗車券について片道か往復かを選択します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/timetable_slide22.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen17",
+              "coords": [902, 374, 1036, 437]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen15",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen17",
+          "caption": "STEP17",
+          "description": "内容を確認します。",
+          "supplementaryExplanation": "今まで選択した内容が表示されます。",
+          "imageUrl": "img/timetable_slide23.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen18",
+              "coords": [1072, 844, 1268, 917]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen16",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen18",
+          "caption": "STEP18",
+          "description": "現金またはカードをお入れください。",
+          "supplementaryExplanation": "現金またはクレジットカードによる決済が終了すると発券されます。",
+          "imageUrl": "img/timetable_slide24.png",
+          "buttons": [
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "titleID": "title03",
+      "title": "新幹線指定席特急券と乗車券を購入",
+      "description": "吉祥寺駅で、東京駅から新青森駅の新幹線指定席特急券と、弘前駅までの片道乗車券を購入しましょう。",
+      "screens": [
+        {
+          "screenID": "screen01",
+          "caption": "STEP1",
+          "description": "きっぷの種類を選択します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/shinkansen_slide01.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [74, 175, 620, 364]
+            }
+          ]
+        },
+        {
+          "screenID": "screen02",
+          "caption": "STEP2",
+          "description": "「指定席」のきっぷの種類を選択します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/shinkansen_slide02.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [58, 212, 606, 328]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen01",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen03",
+          "caption": "STEP3",
+          "description": "新幹線の方面を選択します。",
+          "supplementaryExplanation": "特急券の発着駅を選択するため、新幹線の方面を選択します。",
+          "imageUrl": "img/shinkansen_slide03.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [448, 474, 827, 589]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen04",
+          "caption": "STEP4",
+          "description": "新幹線の乗車駅を選択します。",
+          "supplementaryExplanation": "最寄の新幹線停車駅とその他の駅を選択するボタンが表示されます。",
+          "imageUrl": "img/shinkansen_slide04.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [139, 330, 1136, 490]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen05",
+          "caption": "STEP5",
+          "description": "新幹線の降車駅を選択します。",
+          "supplementaryExplanation": "東北・山形・秋田・北海道新幹線の停車駅一覧が表示されます。",
+          "imageUrl": "img/shinkansen_slide05.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [306, 504, 454, 564]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen06",
+          "caption": "STEP6",
+          "description": "乗車日を選択します。",
+          "supplementaryExplanation": "操作当日から5日間の日付およびそれ以降の日付を選択するボタンが表示されます。",
+          "imageUrl": "img/shinkansen_slide06.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [960, 685, 1216, 760]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen07",
+          "caption": "STEP7",
+          "description": "乗車日を選択します。",
+          "supplementaryExplanation": "1ヶ月先までの日付が表示されます。",
+          "imageUrl": "img/shinkansen_slide07.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [218, 806, 335, 871]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen08",
+          "caption": "STEP8",
+          "description": "乗車時間帯を選択します。",
+          "supplementaryExplanation": "時間帯を選択するボタンが5時以降の1時間単位で表示されます。",
+          "imageUrl": "img/shinkansen_slide08.png",
+          "buttons": [
+            {
+              "name": "roop",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [64, 216, 379, 269]
+            },
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen09",
+              "coords": [647, 617, 774, 692]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen09",
+          "caption": "STEP9",
+          "description": "ご利用人数を選択します。",
+          "supplementaryExplanation": "人数の組み合わせを選択するボタンが表示されます。",
+          "imageUrl": "img/shinkansen_slide09.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [168, 252, 466, 608]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen10",
+          "caption": "STEP10",
+          "description": "お乗りになる列車および設備を選択します。",
+          "supplementaryExplanation": "選択された時間帯に出発する列車の空席状況が表示されます。「○」「△」「×」は空席状況を表しています。",
+          "imageUrl": "img/shinkansen_slide10.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [980, 271, 1081, 340]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen09",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen11",
+          "caption": "STEP11",
+          "description": "希望の座席を選択します。",
+          "supplementaryExplanation": "座席表による座席位置の指定も可能です。（一部の列車では、座席表による座席指定はできません）",
+          "imageUrl": "img/shinkansen_slide11.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [609, 337, 1227, 481]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen12",
+          "caption": "STEP12",
+          "description": "希望の号車を選択します。",
+          "supplementaryExplanation": "「はやて」「こまち」「つばさ」「あさま」号は編成表を表示します。その他の列車はお選びいただいた設備に該当する号車一覧を表示します。（一部の列車では、座席表による座席指定はできません。）",
+          "imageUrl": "img/shinkansen_slide12.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen13",
+              "coords": [1109, 732, 1205, 787]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen13",
+          "caption": "STEP13",
+          "description": "希望の座席を選択します。",
+          "supplementaryExplanation": "お選びいただいた号車の座席一覧が表示されます。「○」 で表示された座席が選択可能です。（一部の列車では、座席表による座席指定はできません。）",
+          "imageUrl": "img/shinkansen_slide13.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen14",
+              "coords": [354, 580, 405, 652]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen14",
+          "caption": "STEP14",
+          "description": "指定した座席番号を確認します。",
+          "supplementaryExplanation": "座席を選択していただくと、選択部分の色が変更されます。（一部の列車では、座席表による座席指定はできません。）",
+          "imageUrl": "img/shinkansen_slide14.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen15",
+              "coords": [1069, 843, 1266, 917]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen13",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen15",
+          "caption": "STEP15",
+          "description": "乗車券の有無及び乗車券のタイプを選択します。",
+          "supplementaryExplanation": "乗車券を購入する場合は、区間を選択します。特急券のみの購入も可能です。",
+          "imageUrl": "img/shinkansen_slide15.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen16",
+              "coords": [257, 678, 395, 742]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen14",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen16",
+          "caption": "STEP16",
+          "description": "乗車券の発駅を選択します。",
+          "supplementaryExplanation": "ここでは、吉祥寺駅が発駅となりますので「吉祥寺から」を選択します。",
+          "imageUrl": "img/shinkansen_slide16.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen17",
+              "coords": [1074, 259, 1210, 323]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen15",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen17",
+          "caption": "STEP17",
+          "description": "乗車券の着駅を選択します。",
+          "supplementaryExplanation": "ここでは、弘前駅が着駅となりますので「その他の駅まで」を選択します。",
+          "imageUrl": "img/shinkansen_slide17.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen18",
+              "coords": [1072, 752, 1212, 820]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen16",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen18",
+          "caption": "STEP18",
+          "description": "かなにより乗車券の着駅を絞り込みます。",
+          "supplementaryExplanation": "着駅名称の一部をかなで入力します。ここでは、弘前駅が着駅となりますので、「ひ」「ろ」の順に入力します。",
+          "imageUrl": "img/shinkansen_slide18.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen19",
+              "coords": [650, 423, 754, 494]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen17",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen19",
+          "caption": "STEP19",
+          "description": "絞り込まれた駅名候補から乗車券の着駅を選択します。",
+          "supplementaryExplanation": "ここでは、弘前駅が着駅になりますので、「弘前」を選択します。",
+          "imageUrl": "img/shinkansen_slide19.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen20",
+              "coords": [488, 547, 785, 725]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen18",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen20",
+          "caption": "STEP20",
+          "description": "乗車券の経路を選択します。",
+          "supplementaryExplanation": "乗車券の経路を確認し、「選択」を押下します。",
+          "imageUrl": "img/shinkansen_slide20.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen21",
+              "coords": [448, 761, 597, 819]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen19",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen21",
+          "caption": "STEP21",
+          "description": "乗車券の片道／往復を選択します。",
+          "supplementaryExplanation": "往復乗車券のほか、復路の特急券も購入できます。",
+          "imageUrl": "img/shinkansen_slide21.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen22",
+              "coords": [999, 341, 1137, 409]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen20",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen22",
+          "caption": "STEP22",
+          "description": "内容を確認します。",
+          "supplementaryExplanation": "今まで選択した内容が表示されます。",
+          "imageUrl": "img/shinkansen_slide22.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen23",
+              "coords": [1069, 842, 1266, 918]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen23",
+          "caption": "STEP23",
+          "description": "現金またはカードをお入れください。",
+          "supplementaryExplanation": "現金またはクレジットカードによる決済が終了すると発券されます。",
+          "imageUrl": "img/shinkansen_slide23.png",
+          "buttons": [
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "titleID": "title04",
+      "title": "Suica定期券を購入",
+      "description": "東京駅で、東京駅－新宿間のSuica定期券を購入してみましょう。",
+      "screens": [
+        {
+          "screenID": "screen01",
+          "caption": "STEP1",
+          "description": "きっぷの種類を選択します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/suica_slide01.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [76, 767, 621, 885]
+            }
+          ]
+        },
+        {
+          "screenID": "screen02",
+          "caption": "STEP2",
+          "description": "定期券の購入方法を選択します。",
+          "supplementaryExplanation": "定期券を新規・継続購入するか、「ネットde定期」で予約した定期券を受け取るかを選択します。",
+          "imageUrl": "img/suica_slide02.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [149, 211, 1128, 328]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen01",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen03",
+          "caption": "STEP3",
+          "description": "定期券の購入方法を選択します。",
+          "supplementaryExplanation": "定期券を新規に購入するか、継続購入するか、磁気定期券からSuica定期券に変更するかを選択します。",
+          "imageUrl": "img/suica_slide03.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [167, 353, 464, 459]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        },
+        {
+          "screenID": "screen04",
+          "caption": "STEP4",
+          "description": "定期券の種類を選択します。",
+          "supplementaryExplanation": "通勤定期券とFREX定期券が新規購入できます。通学定期券、FREXパル定期券、小児定期券は年度をまたがない継続のみ購入できます。",
+          "imageUrl": "img/suica_slide04.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [999, 343, 1135, 409]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen05",
+          "caption": "STEP5",
+          "description": "有効期間と利用開始日を選択します。",
+          "supplementaryExplanation": "ご希望の有効期間と利用開始日を選択します。通勤定期券の場合、有効期間は「1ヶ月」「3ヶ月」「6ヶ月」から選択できます。新規購入の場合、ご利用開始日は操作当日から14日間の中から選択します。",
+          "imageUrl": "img/suica_slide05.png",
+          "buttons": [
+            {
+              "name": "roop",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [214, 271, 481, 376]
+            },
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [428, 527, 626, 735]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen06",
+          "caption": "STEP6",
+          "description": "乗車駅を選択します。",
+          "supplementaryExplanation": "基本的に設置駅が表示されます。",
+          "imageUrl": "img/suica_slide06.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [489, 319, 788, 498]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen07",
+          "caption": "STEP7",
+          "description": "着駅名称の一部をかなで入力します。",
+          "supplementaryExplanation": "かな検索により定期券の着駅を絞り込みます。",
+          "imageUrl": "img/suica_slide07.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [290, 421, 386, 496]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen08",
+          "caption": "STEP8",
+          "description": "着駅を選択します。",
+          "supplementaryExplanation": "絞り込まれた駅名候補から乗車券の着駅を選択します。",
+          "imageUrl": "img/suica_slide08.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen09",
+              "coords": [150, 321, 448, 497]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen09",
+          "caption": "STEP9",
+          "description": "乗車される経路を選択します。",
+          "supplementaryExplanation": "東京～新宿間の乗車経路候補を表示します。",
+          "imageUrl": "img/suica_slide09.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [449, 760, 596, 819]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen08",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen10",
+          "caption": "STEP10",
+          "description": "Suica定期券を購入するか、磁気定期券を購入するかを選択します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/suica_slide10.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [998, 339, 1138, 410]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen09",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen11",
+          "caption": "STEP11",
+          "description": "お手持ちのSuicaを利用されるか、新規に購入されるかを選択します。",
+          "supplementaryExplanation": "有効期間の切れたお手持ちのSuica定期券を利用することも可能です。",
+          "imageUrl": "img/suica_slide11.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [993, 589, 1131, 657]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen10",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen12",
+          "caption": "STEP12",
+          "description": "ご案内をお読みいただき、ご確認いただきます。",
+          "supplementaryExplanation": "個人情報に関するご案内を表示します。",
+          "imageUrl": "img/suica_slide12.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen13",
+              "coords": [1070, 841, 1266, 918]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen11",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen13",
+          "caption": "STEP13",
+          "description": "名前を入力します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/suica_slide13.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen14",
+              "coords": [1069, 842, 1268, 917]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen12",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen14",
+          "caption": "STEP14",
+          "description": "性別・西暦か元号を選択し、生年月日を数字で入力します。",
+          "supplementaryExplanation": "性別と生年月日を入力します。",
+          "imageUrl": "img/suica_slide14.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen15",
+              "coords": [1069, 842, 1268, 917]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen13",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen15",
+          "caption": "STEP15",
+          "description": "電話番号を入力します。",
+          "supplementaryExplanation": "電話番号のほか、内線番号も入力できます。",
+          "imageUrl": "img/suica_slide15.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen16",
+              "coords": [1070, 841, 1266, 918]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen14",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen16",
+          "caption": "STEP16",
+          "description": "内容を確認します。",
+          "supplementaryExplanation": "今まで選択した内容が表示されます。",
+          "imageUrl": "img/suica_slide16.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen17",
+              "coords": [1070, 841, 1266, 918]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen15",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen17",
+          "caption": "STEP17",
+          "description": "現金またはカードをお入れください。",
+          "supplementaryExplanation": "現金またはクレジットカードによる決済が終了すると、発券されます。",
+          "imageUrl": "img/suica_slide17.png",
+          "buttons": [
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "titleID": "title05",
+      "title": "ネットde定期でお申込みいただいた定期券の受取り",
+      "description": "「ネットde定期」でお申し込みいただいた定期券を指定席券売機で受取ってみましょう。<br>※QRコードでお受取りのお客さまは、トップ画面より「QRコードの読取り」ボタンを押下し、QRコードを指定席券売機にかざしてください。以降はSTEP5～7をご参照ください。",
+      "screens": [
+        {
+          "screenID": "screen01",
+          "caption": "STEP1",
+          "description": "きっぷの種類を選択します。",
+          "supplementaryExplanation": "",
+          "imageUrl": "img/net_slide01.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen02",
+              "coords": [74, 767, 621, 884]
+            }
+          ]
+        },
+        {
+          "screenID": "screen02",
+          "caption": "STEP2",
+          "description": "定期券の購入方法を選択します。",
+          "supplementaryExplanation": "定期券を新規・継続購入するか、「ネットde定期」で予約した定期券を受け取るかを選択します。",
+          "imageUrl": "img/net_slide02.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [148, 373, 1126, 487]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen01",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen03",
+          "caption": "STEP3",
+          "description": "申込番号を入力します。",
+          "supplementaryExplanation": "申込み時に発行された「申込番号（6桁）」を入力してください。",
+          "imageUrl": "img/net_slide03.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [558, 370, 675, 448]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen01",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen04",
+          "caption": "STEP4",
+          "description": "電話番号を入力します。",
+          "supplementaryExplanation": "申込み時に登録した電話番号を入力し、確定ボタンにタッチしてください。",
+          "imageUrl": "img/net_slide04.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen05",
+              "coords": [1072, 843, 1268, 919]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen03",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen05",
+          "caption": "STEP5",
+          "description": "媒体の選択（Suica定期券をお申込の場合）",
+          "supplementaryExplanation": "お手持ちのSuicaを利用するか、新しくSuica定期券を購入するかを選択します。",
+          "imageUrl": "img/net_slide05.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen06",
+              "coords": [995, 342, 1134, 407]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            },
+            {
+              "name": "previous",
+              "shape": "rect",
+              "destination": "screen04",
+              "coords": [158, 941, 325, 1011]
+            }
+          ]
+        },
+        {
+          "screenID": "screen06",
+          "caption": "STEP6",
+          "description": "内容を確認します。",
+          "supplementaryExplanation": "お申込内容が表示されます。",
+          "imageUrl": "img/net_slide06.png",
+          "buttons": [
+            {
+              "name": "next",
+              "shape": "rect",
+              "destination": "screen07",
+              "coords": [628, 494, 742, 537]
+            },
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        },
+        {
+          "screenID": "screen07",
+          "caption": "STEP7",
+          "description": "現金またはカードをお入れください。",
+          "supplementaryExplanation": "現金またはクレジットカードによる決済が終了すると、発券されます。インターネット定期券申込サービス「ネットde定期」の詳細はこちら",
+          "imageUrl": "img/net_slide07.png",
+          "buttons": [
+            {
+              "name" : "cancel",
+              "shape": "circle",
+              "destination": "screen01",
+              "coords": [67, 957, 58]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
