@@ -1,19 +1,21 @@
 # @shuji-bonji/experiential-manual-model
 
-画面や機器の操作を体験しながら学べる「体験型操作マニュアル」の共通データモデルです。作成ツールと閲覧ソフトがこの形でデータを読み書きし、S1000D のデータモジュールへの変換は別のパッケージ（`s1000d-writer-mcp`）が行います。このパッケージ自体は S1000D に依存せず、S1000D の用語も使いません。
+**English** | [日本語](./README.ja.md)
 
-## 入っているもの
+A common data model for "experiential operation manuals", which let you learn how to operate a screen or a device by trying it out. The authoring tool and the viewer read and write data in this form; conversion to S1000D® data modules is done by a separate package (`s1000d-writer-mcp`). This package itself does not depend on S1000D and does not use S1000D terminology.
 
-| 内容 | 場所 |
+## What is included
+
+| Content | Location |
 |---|---|
-| TypeScript の型（`Manual` / `Topic` / `Step` / `Screen` / `Hotspot` / `Transition` / `Asset` / `Scope` / `Admonition` / `Term`） | `src/types.ts` |
-| JSON Schema（draft 2020-12） | `schema/manual.schema.json`（`@shuji-bonji/experiential-manual-model/schema/manual.schema.json` でも読めます） |
-| 検査 `validateManual(json)` — 形の誤り・参照切れ・id の重複を `errors`、到達できない画面や未使用の素材を `warnings` で返します。実行時の依存はありません | `src/validate.ts` |
-| 2021 年の作品 [experience_based_operation_explanation](https://github.com/shuji-bonji/experience_based_operation_explanation) の `JSON.json` を読む `fromLegacyJson(json)` | `src/legacy.ts` |
-| 手順の番号（1、1.1、…）を組み立てる `numberSteps(steps)` | `src/number.ts` |
-| 券売機の例 | `examples/kenbaiki.manual.json` |
+| TypeScript types (`Manual` / `Topic` / `Step` / `Screen` / `Hotspot` / `Transition` / `Asset` / `Scope` / `Admonition` / `Term`) | `src/types.ts` |
+| JSON Schema (draft 2020-12) | `schema/manual.schema.json` (also readable as `@shuji-bonji/experiential-manual-model/schema/manual.schema.json`) |
+| Validation `validateManual(json)` — returns shape errors, broken references and duplicate ids in `errors`, and unreachable screens and unused assets in `warnings`. It has no runtime dependencies | `src/validate.ts` |
+| `fromLegacyJson(json)`, which reads the `JSON.json` of the 2021 work [experience_based_operation_explanation](https://github.com/shuji-bonji/experience_based_operation_explanation) | `src/legacy.ts` |
+| `numberSteps(steps)`, which builds procedure numbers (1, 1.1, …) | `src/number.ts` |
+| Ticket machine example | `examples/kenbaiki.manual.json` |
 
-## モデル
+## Model
 
 ```mermaid
 classDiagram
@@ -35,13 +37,13 @@ classDiagram
   Step --> Transition
 ```
 
-- `Topic.kind` は `description`（説明文）、`procedure`（手順）、`screenFlow`（画面と遷移）、`troubleshooting`（問いと答えで進む）の 4 つです。
-- `Hotspot.coords` は HTML の `<area>` と同じ書き方です（`rect` は `[x1, y1, x2, y2]`、`circle` は `[cx, cy, r]`、`poly` は `[x1, y1, x2, y2, …]`）。
-- `Scope` は「この機種」「屋外設置」のような適用範囲です。`Topic` / `Step` / `Block` / `Screen` が `scopeRefs` で参照します。
-- `Asset.source` が原本、`Asset.display` が表示用の変換物です（3D の原本 JT と表示用の glTF、など）。
-- 手順の番号は保存しません。`numberSteps` で表示時に組み立てます。
+- `Topic.kind` has 4 values: `description` (explanatory text), `procedure` (a procedure), `screenFlow` (screens and transitions) and `troubleshooting` (proceeds by question and answer).
+- `Hotspot.coords` uses the same notation as the HTML `<area>` element (`rect` is `[x1, y1, x2, y2]`, `circle` is `[cx, cy, r]`, `poly` is `[x1, y1, x2, y2, …]`).
+- `Scope` is a range of applicability such as "this model" or "outdoor installation". `Topic` / `Step` / `Block` / `Screen` refer to it through `scopeRefs`.
+- `Asset.source` is the original, and `Asset.display` is the derived form used for display (for example, an original JT 3D model and a glTF for display).
+- Procedure numbers are not stored. `numberSteps` builds them at display time.
 
-## 使い方
+## Usage
 
 ```ts
 import { readFileSync } from 'node:fs';
@@ -50,35 +52,35 @@ import { validateManual, fromLegacyJson, numberSteps, type Manual } from '@shuji
 const manual = JSON.parse(readFileSync('kenbaiki.manual.json', 'utf8')) as Manual;
 const result = validateManual(manual);
 if (!result.ok) console.error(result.errors);   // [{ path: '/topics/1/screens/0/hotspots/0/transition/to', message: '…' }]
-console.log(result.warnings);                   // 到達できない画面、未使用の素材・適用範囲
+console.log(result.warnings);                   // unreachable screens, unused assets and scopes
 
-// 2021 年の JSON.json を読む
+// Read the 2021 JSON.json
 const { manual: converted, warnings } = fromLegacyJson(JSON.parse(readFileSync('JSON.json', 'utf8')));
 
-// 手順の番号
+// Procedure numbers
 for (const { number, step } of numberSteps(manual.topics[2].steps!)) console.log(number, step.text);
 ```
 
-## 2021 年の JSON との対応
+## Mapping from the 2021 JSON
 
-| 2021 年の `JSON.json` | このモデル |
+| 2021 `JSON.json` | This model |
 |---|---|
-| `purchaseTypes[]`（README では `displayAreas[]`） | `Topic`（`kind: "screenFlow"`） |
+| `purchaseTypes[]` (`displayAreas[]` in its README) | `Topic` (`kind: "screenFlow"`) |
 | `titleID` / `title` / `description` | `Topic.id` / `title` / `summary` |
-| `screens[]` の `screenID`（または `screenId`）/ `caption` / `description` / `imageUrl` | `Screen.id`（話題の id を接頭辞にして一意にする）/ `caption` / `description` / `assetRef` |
+| `screenID` (or `screenId`) / `caption` / `description` / `imageUrl` in `screens[]` | `Screen.id` (made unique by prefixing the topic id) / `caption` / `description` / `assetRef` |
 | `supplementaryExplanation` | `Screen.admonitions[{ level: "note" }]` |
-| `buttons[]` の `name` / `shape` / `coords` / `destination`（または `screenTransitionDestination`） | `Hotspot.label` / `shape` / `coords` / `transition.to` |
+| `name` / `shape` / `coords` / `destination` (or `screenTransitionDestination`) in `buttons[]` | `Hotspot.label` / `shape` / `coords` / `transition.to` |
 
-`rect` の `coords` に 5 つ目の値が付いた button が 2 件あります。`fromLegacyJson` は捨てて `warnings` に書きます。
+There are 2 buttons whose `rect` `coords` carry a fifth value. `fromLegacyJson` drops it and records it in `warnings`.
 
-## 開発
+## Development
 
 ```sh
 npm install
-npm test          # 検査・変換・JSON Schema（ajv は開発時だけの依存）
+npm test          # validation, conversion, JSON Schema (ajv is a dev-only dependency)
 npm run build
 ```
 
-## ライセンス
+## License
 
 MIT
