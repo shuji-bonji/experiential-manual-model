@@ -1,6 +1,6 @@
 # Changelog
 
-## 未リリース（0.1.0 に向けて）
+## 0.1.0 (2026-10-26)
 
 最初の版。s1000d-stack の段階 2 の作業 8（design/manual-model.md、DECISIONS D-01・D-09・U-04）。
 
