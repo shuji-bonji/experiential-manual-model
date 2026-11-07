@@ -22,13 +22,15 @@ classDiagram
   class Manual { id; title; version; language; scopes; topics; assets; glossary }
   class Topic { id; kind; title; summary; blocks; steps; screens; startScreenRef }
   class Step { id; text; targetRef; expected; admonitions; assetRefs; scopeRefs; next; question; answers; children }
-  class Screen { id; caption; assetRef; description; admonitions; hotspots }
-  class Hotspot { id; label; shape; coords; action; transition }
+  class Screen { id; caption; assetRef; description; admonitions; hotspots; capture }
+  class Hotspot { id; label; shape; coords; action; transition; capture }
   class Transition { to; condition; when; label }
   class Asset { id; kind; source; display; alt }
+  class AssetFile { path; data; mediaType; hash; width; height }
   class Scope { id; property; values; displayText }
   Manual --> Topic
   Manual --> Asset
+  Asset --> AssetFile
   Manual --> Scope
   Topic --> Step
   Topic --> Screen
@@ -40,7 +42,10 @@ classDiagram
 - `Topic.kind` は `description`（説明文）、`procedure`（手順）、`screenFlow`（画面と遷移）、`troubleshooting`（問いと答えで進む）の 4 つです。
 - `Hotspot.coords` は HTML の `<area>` と同じ書き方です（`rect` は `[x1, y1, x2, y2]`、`circle` は `[cx, cy, r]`、`poly` は `[x1, y1, x2, y2, …]`）。
 - `Scope` は「この機種」「屋外設置」のような適用範囲です。`Topic` / `Step` / `Block` / `Screen` が `scopeRefs` で参照します。
+- `Screen` の画像はスクリーンショットに限りません。操作パネルの写真や分解図の上にホットスポットを置くこともできます。
 - `Asset.source` が原本、`Asset.display` が表示用の変換物です（3D の原本 JT と表示用の glTF、など）。
+- `AssetFile` は `path`（マニュアルの JSON からの相対パスか URL）と `data`（内容を埋め込む data URL）のどちらか一方を必ず持ちます。`width` / `height` は画像の元の大きさ（ピクセル）で、表示の縮尺に合わせてホットスポットの座標を変換するときに使います。
+- `Screen.capture`（撮った URL・表示領域の大きさ・日時）と `Hotspot.capture`（CSS セレクター）は、Web アプリの画面を撮り直すときの手がかりです。どちらも任意です。
 - 手順の番号は保存しません。`numberSteps` で表示時に組み立てます。
 
 ## 使い方

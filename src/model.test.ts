@@ -104,6 +104,56 @@ describe('validateManual の検査', () => {
     ]);
   });
 
+  it('0.2.0 の追加: AssetFile は path か data のどちらかが要り、width / height は 1 以上の整数', () => {
+    const m = clone();
+    // 0.1.0 の形（path だけ）はそのまま通る
+    expect(validateManual(m).ok).toBe(true);
+    // data だけでも通る
+    m.assets![0].source = { data: 'data:image/png;base64,iVBORw0KGgo=', width: 1280, height: 1024 };
+    expect(validateManual(m).errors).toEqual([]);
+    expect(schemaValidate(m), JSON.stringify(schemaValidate.errors)).toBe(true);
+    // path も data も無い、data が data URL でない、width が 0 → errors
+    m.assets![0].source = { mediaType: 'image/png' };
+    m.assets![1].source = { data: 'img/x.png' };
+    m.assets![2].source = { path: 'img/payment.png', width: 0, height: 1.5 };
+    const r = validateManual(m);
+    expect(r.errors.map((e) => `${e.path}: ${e.message}`)).toEqual([
+      '/assets/0/source: either path or data is required',
+      '/assets/1/source/data: data must be a data URL ("data:…")',
+      '/assets/2/source/width: width must be an integer of at least 1',
+      '/assets/2/source/height: height must be an integer of at least 1',
+    ]);
+    expect(schemaValidate(m)).toBe(false);
+  });
+
+  it('0.2.0 の追加: Screen.capture / Hotspot.capture / Admonition.title', () => {
+    const m = clone();
+    const screen = m.topics[1].screens![0];
+    expect(screen.capture).toEqual({
+      url: 'https://example.com/kenbaiki/top',
+      viewport: { width: 1280, height: 1024 },
+      capturedAt: '2026-11-08T03:30:00+09:00',
+    });
+    expect(screen.hotspots[0].capture).toEqual({ selector: '#btn-transfer' });
+    expect(m.topics[2].steps![0].admonitions![0].title).toBe('扉の重さ');
+    // url が無い、viewport の height が無い、capturedAt の形、selector が無い、title が文字列でない
+    screen.capture = {
+      viewport: { width: 1280 },
+      capturedAt: '2026-11-08 03:30',
+    } as unknown as NonNullable<typeof screen.capture>;
+    screen.hotspots[0].capture = {} as { selector: string };
+    (m.topics[2].steps![0].admonitions![0] as { title: unknown }).title = 1;
+    const r = validateManual(m);
+    expect(r.errors.map((e) => `${e.path}: ${e.message}`)).toEqual([
+      '/topics/1/screens/0/capture/url: url is required',
+      '/topics/1/screens/0/capture/viewport/height: height is required',
+      '/topics/1/screens/0/capture/capturedAt: capturedAt must be an ISO 8601 date-time',
+      '/topics/1/screens/0/hotspots/0/capture/selector: selector is required',
+      '/topics/2/steps/0/admonitions/0/title: title must be a string',
+    ]);
+    expect(schemaValidate(m)).toBe(false);
+  });
+
   it('オブジェクトでなければ 1 つの error、assertManual は投げる', () => {
     expect(validateManual('x').errors).toHaveLength(1);
     expect(() => assertManual({})).toThrow(/Invalid manual/);
@@ -163,6 +213,24 @@ describe('fromLegacyJson（2021 年の JSON.json）', () => {
     expect(warnings).toEqual([]);
     expect(manual.topics[0].screens![0].hotspots[0].transition).toEqual({ to: 'a1/s2' });
     expect(validateManual(manual).ok).toBe(true);
+  });
+  it('imageUrl が data URL なら source.data に入れる（0.2.0）', () => {
+    const { manual } = fromLegacyJson({
+      displayAreas: [
+        {
+          titleId: 'a1',
+          title: 'A',
+          screens: [
+            { screenId: 's1', imageUrl: 'data:image/png;base64,iVBORw0KGgo=', buttons: [] },
+            { screenId: 's2', imageUrl: 'data:image/png;base64,iVBORw0KGgo=', buttons: [] },
+          ],
+        },
+      ],
+    });
+    expect(manual.assets).toHaveLength(1);
+    expect(manual.assets![0].source).toEqual({ data: 'data:image/png;base64,iVBORw0KGgo=' });
+    expect(validateManual(manual).errors).toEqual([]);
+    expect(schemaValidate(manual), JSON.stringify(schemaValidate.errors)).toBe(true);
   });
   it('配列が無ければ投げる', () => {
     expect(() => fromLegacyJson({})).toThrow(/purchaseTypes/);

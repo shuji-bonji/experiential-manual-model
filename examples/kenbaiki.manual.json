@@ -9,46 +9,90 @@
   "language": "ja",
   "description": "券売機の画面を体験しながら操作を学ぶマニュアルの例です。画面の素材は架空のものです。",
   "scopes": [
-    { "id": "scope-mv50", "property": "model", "values": ["MV-50"], "displayText": "MV-50" },
-    { "id": "scope-mv60", "property": "model", "values": ["MV-60"], "displayText": "MV-60" },
-    { "id": "scope-outdoor", "property": "site", "values": ["outdoor"], "displayText": "屋外設置" }
+    {
+      "id": "scope-mv50",
+      "property": "model",
+      "values": ["MV-50"],
+      "displayText": "MV-50"
+    },
+    {
+      "id": "scope-mv60",
+      "property": "model",
+      "values": ["MV-60"],
+      "displayText": "MV-60"
+    },
+    {
+      "id": "scope-outdoor",
+      "property": "site",
+      "values": ["outdoor"],
+      "displayText": "屋外設置"
+    }
   ],
   "assets": [
     {
       "id": "img-top",
       "kind": "image",
-      "source": { "path": "img/top.png", "mediaType": "image/png" },
+      "source": {
+        "path": "img/top.png",
+        "mediaType": "image/png",
+        "width": 1280,
+        "height": 1024
+      },
       "alt": "トップ画面"
     },
     {
       "id": "img-station",
       "kind": "image",
-      "source": { "path": "img/station.png", "mediaType": "image/png" },
+      "source": {
+        "path": "img/station.png",
+        "mediaType": "image/png",
+        "width": 1280,
+        "height": 1024
+      },
       "alt": "到着駅の選択画面"
     },
     {
       "id": "img-payment",
       "kind": "image",
-      "source": { "path": "img/payment.png", "mediaType": "image/png" },
+      "source": {
+        "path": "img/payment.png",
+        "mediaType": "image/png",
+        "width": 1280,
+        "height": 1024
+      },
       "alt": "支払い画面"
     },
     {
       "id": "img-shortage",
       "kind": "image",
-      "source": { "path": "img/shortage.png", "mediaType": "image/png" },
+      "source": {
+        "path": "img/shortage.png",
+        "mediaType": "image/png",
+        "width": 1280,
+        "height": 1024
+      },
       "alt": "残高不足の画面"
     },
     {
       "id": "img-door",
       "kind": "image",
-      "source": { "path": "img/door.png", "mediaType": "image/png" },
+      "source": {
+        "path": "img/door.png",
+        "mediaType": "image/png"
+      },
       "alt": "前面扉の取っ手"
     },
     {
       "id": "model-door",
       "kind": "model3d",
-      "source": { "path": "cad/door.jt", "mediaType": "model/vnd.siemens.jt" },
-      "display": { "path": "cad/door.glb", "mediaType": "model/gltf-binary" },
+      "source": {
+        "path": "cad/door.jt",
+        "mediaType": "model/vnd.siemens.jt"
+      },
+      "display": {
+        "path": "cad/door.glb",
+        "mediaType": "model/gltf-binary"
+      },
       "alt": "前面扉の 3D モデル"
     }
   ],
@@ -80,7 +124,11 @@
           "id": "sec-screen",
           "title": "画面の見方",
           "children": [
-            { "kind": "figure", "title": "トップ画面", "assetRef": "img-top" },
+            {
+              "kind": "figure",
+              "title": "トップ画面",
+              "assetRef": "img-top"
+            },
             {
               "kind": "table",
               "rows": [
@@ -118,9 +166,22 @@
               "shape": "rect",
               "coords": [653, 177, 1203, 364],
               "action": "press",
-              "transition": { "to": "scr-station" }
+              "transition": {
+                "to": "scr-station"
+              },
+              "capture": {
+                "selector": "#btn-transfer"
+              }
             }
-          ]
+          ],
+          "capture": {
+            "url": "https://example.com/kenbaiki/top",
+            "viewport": {
+              "width": 1280,
+              "height": 1024
+            },
+            "capturedAt": "2026-11-08T03:30:00+09:00"
+          }
         },
         {
           "id": "scr-station",
@@ -140,7 +201,9 @@
               "shape": "rect",
               "coords": [1068, 323, 1196, 391],
               "action": "press",
-              "transition": { "to": "scr-payment" }
+              "transition": {
+                "to": "scr-payment"
+              }
             },
             {
               "id": "hs-station-cancel",
@@ -148,7 +211,9 @@
               "shape": "circle",
               "coords": [67, 957, 58],
               "action": "press",
-              "transition": { "to": "scr-top" }
+              "transition": {
+                "to": "scr-top"
+              }
             }
           ]
         },
@@ -176,7 +241,10 @@
               "shape": "poly",
               "coords": [100, 800, 300, 800, 300, 950, 100, 950],
               "action": "input",
-              "transition": { "to": "scr-shortage", "condition": "残高が不足しているとき" }
+              "transition": {
+                "to": "scr-shortage",
+                "condition": "残高が不足しているとき"
+              }
             }
           ]
         },
@@ -192,7 +260,9 @@
               "shape": "rect",
               "coords": [158, 941, 325, 1010],
               "action": "press",
-              "transition": { "to": "scr-payment" }
+              "transition": {
+                "to": "scr-payment"
+              }
             }
           ]
         }
@@ -208,7 +278,13 @@
         {
           "id": "stp-open-1",
           "text": "保守鍵で前面扉の鍵を開ける。",
-          "admonitions": [{ "level": "caution", "text": "扉は重いので、両手で支える。" }],
+          "admonitions": [
+            {
+              "level": "caution",
+              "text": "扉は重いので、両手で支える。",
+              "title": "扉の重さ"
+            }
+          ],
           "assetRefs": ["img-door", "model-door"],
           "children": [
             {
@@ -216,7 +292,11 @@
               "text": "鍵を右に回す。",
               "expected": "カチッと音がして鍵が外れる。"
             },
-            { "id": "stp-open-1-2", "text": "取っ手を引く。", "scopeRefs": ["scope-mv60"] },
+            {
+              "id": "stp-open-1-2",
+              "text": "取っ手を引く。",
+              "scopeRefs": ["scope-mv60"]
+            },
             {
               "id": "stp-open-1-3",
               "text": "雨よけのカバーを先に外す。",
@@ -224,8 +304,19 @@
             }
           ]
         },
-        { "id": "stp-open-2", "text": "保守モードに入る。", "next": [{ "to": "stp-open-3" }] },
-        { "id": "stp-open-3", "text": "作業が終わったら扉を閉めて鍵をかける。" }
+        {
+          "id": "stp-open-2",
+          "text": "保守モードに入る。",
+          "next": [
+            {
+              "to": "stp-open-3"
+            }
+          ]
+        },
+        {
+          "id": "stp-open-3",
+          "text": "作業が終わったら扉を閉めて鍵をかける。"
+        }
       ]
     },
     {
@@ -238,17 +329,39 @@
           "text": "用紙の残量を見る。",
           "question": "用紙はありますか。",
           "answers": [
-            { "text": "ある", "next": { "to": "ts-2" } },
-            { "text": "ない", "next": { "to": "ts-3" } }
+            {
+              "text": "ある",
+              "next": {
+                "to": "ts-2"
+              }
+            },
+            {
+              "text": "ない",
+              "next": {
+                "to": "ts-3"
+              }
+            }
           ]
         },
-        { "id": "ts-2", "text": "印字部を清掃する。" },
-        { "id": "ts-3", "text": "用紙を補充する。" }
+        {
+          "id": "ts-2",
+          "text": "印字部を清掃する。"
+        },
+        {
+          "id": "ts-3",
+          "text": "用紙を補充する。"
+        }
       ]
     }
   ],
   "glossary": [
-    { "term": "保守モード", "definition": "係員だけが使える画面。売上の集計や用紙の交換を行う。" },
-    { "term": "IC カード", "definition": "交通系の非接触 IC カード。" }
+    {
+      "term": "保守モード",
+      "definition": "係員だけが使える画面。売上の集計や用紙の交換を行う。"
+    },
+    {
+      "term": "IC カード",
+      "definition": "交通系の非接触 IC カード。"
+    }
   ]
 }

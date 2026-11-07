@@ -8,7 +8,16 @@
  *
  * 分かっている癖: `rect` の coords に 5 つ目の値が付いた button が 2 件ある（捨てて警告にする）。
  */
-import type { Admonition, Asset, Hotspot, Manual, Screen, Topic, Transition } from './types.js';
+import type {
+  Admonition,
+  Asset,
+  AssetFile,
+  Hotspot,
+  Manual,
+  Screen,
+  Topic,
+  Transition,
+} from './types.js';
 
 export interface LegacyConversion {
   manual: Manual;
@@ -40,10 +49,13 @@ export function fromLegacyJson(input: unknown, options: LegacyOptions = {}): Leg
     throw new Error('legacy JSON has neither "purchaseTypes" nor "displayAreas"');
 
   const assets = new Map<string, Asset>();
+  // data URL は path ではなく data に入れる（0.2.0）
+  const fileFor = (url: string): AssetFile =>
+    url.startsWith('data:') ? { data: url } : { path: url };
   const assetIdFor = (url: string): string => {
-    for (const [id, a] of assets) if (a.source.path === url) return id;
+    for (const [id, a] of assets) if ((a.source.path ?? a.source.data) === url) return id;
     const id = `asset-${String(assets.size + 1).padStart(3, '0')}`;
-    assets.set(id, { id, kind: 'image', source: { path: url } });
+    assets.set(id, { id, kind: 'image', source: fileFor(url) });
     return id;
   };
 

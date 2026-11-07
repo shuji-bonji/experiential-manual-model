@@ -1,6 +1,6 @@
 {
   "name": "@shuji-bonji/experiential-manual-model",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Data model for experiential operation manuals (screens with hotspots, screen flows, procedures, troubleshooting): TypeScript types, JSON Schema, validator and a converter from the 2021 experience_based_operation_explanation JSON. Independent of S1000D.",
   "keywords": ["manual", "operation-manual", "experiential", "interactive", "hotspot", "screen-flow", "json-schema", "typescript", "ietm"],
   "author": "shuji-bonji",

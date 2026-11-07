@@ -22,13 +22,15 @@ classDiagram
   class Manual { id; title; version; language; scopes; topics; assets; glossary }
   class Topic { id; kind; title; summary; blocks; steps; screens; startScreenRef }
   class Step { id; text; targetRef; expected; admonitions; assetRefs; scopeRefs; next; question; answers; children }
-  class Screen { id; caption; assetRef; description; admonitions; hotspots }
-  class Hotspot { id; label; shape; coords; action; transition }
+  class Screen { id; caption; assetRef; description; admonitions; hotspots; capture }
+  class Hotspot { id; label; shape; coords; action; transition; capture }
   class Transition { to; condition; when; label }
   class Asset { id; kind; source; display; alt }
+  class AssetFile { path; data; mediaType; hash; width; height }
   class Scope { id; property; values; displayText }
   Manual --> Topic
   Manual --> Asset
+  Asset --> AssetFile
   Manual --> Scope
   Topic --> Step
   Topic --> Screen
@@ -40,7 +42,10 @@ classDiagram
 - `Topic.kind` has 4 values: `description` (explanatory text), `procedure` (a procedure), `screenFlow` (screens and transitions) and `troubleshooting` (proceeds by question and answer).
 - `Hotspot.coords` uses the same notation as the HTML `<area>` element (`rect` is `[x1, y1, x2, y2]`, `circle` is `[cx, cy, r]`, `poly` is `[x1, y1, x2, y2, …]`).
 - `Scope` is a range of applicability such as "this model" or "outdoor installation". `Topic` / `Step` / `Block` / `Screen` refer to it through `scopeRefs`.
+- The image of a `Screen` does not have to be a screenshot. Hotspots can also be placed on a photo of a control panel or on an exploded-view drawing.
 - `Asset.source` is the original, and `Asset.display` is the derived form used for display (for example, an original JT 3D model and a glTF for display).
+- An `AssetFile` has either `path` (a path relative to the manual JSON, or a URL) or `data` (a data URL that embeds the content). `width` / `height` give the original size of an image in pixels, used to scale hotspot coordinates to the displayed size.
+- `Screen.capture` (the URL, viewport size and time of the capture) and `Hotspot.capture` (a CSS selector) are hints for re-capturing the screens of a web application. Both are optional.
 - Procedure numbers are not stored. `numberSteps` builds them at display time.
 
 ## Usage

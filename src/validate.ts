@@ -1,8 +1,8 @@
 /**
  * マニュアルの検査。実行時の依存を増やさないため、形の検査も自前で書く（JSON Schema と同じ規則）。
  *
- * - errors: 形の誤り（必須項目が無い、型が違う、列挙に無い値、coords の長さ）、参照切れ（transition.to / assetRef /
- *   scopeRefs / targetRef / startScreenRef）、id の重複
+ * - errors: 形の誤り（必須項目が無い、型が違う、列挙に無い値、coords の長さ、AssetFile に path も data も無い）、
+ *   参照切れ（transition.to / assetRef / scopeRefs / targetRef / startScreenRef）、id の重複
  * - warnings: 到達できない画面、遷移の無い画面（終端でないのに次が無い）、素材の無い参照先、使われていない素材・適用範囲
  */
 import type { Manual } from './types.js';
@@ -30,6 +30,8 @@ const LEVELS = ['warning', 'caution', 'note'];
 const SHAPES = ['rect', 'circle', 'poly'];
 const ACTIONS = ['press', 'input', 'read'];
 const ASSET_KINDS = ['image', 'video', 'model3d', 'document'];
+/** ISO 8601 の日時（秒・小数・時差は任意。JSON Schema の pattern と同じ） */
+const ISO_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?$/;
 
 class Checker {
   errors: ValidationIssue[] = [];
@@ -108,8 +110,20 @@ class Checker {
       const p = `${path}/admonitions/${i}`;
       if (!isObj(a)) return this.err(p, 'admonition must be an object');
       this.enumOf(a, 'level', LEVELS, p, true);
+      this.str(a, 'title', p);
       this.str(a, 'text', p, true);
     });
+  }
+
+  /** 1 以上の整数（ピクセルの大きさ） */
+  pixels(o: Obj, key: string, path: string, required = false) {
+    const v = o[key];
+    if (v === undefined) {
+      if (required) this.err(`${path}/${key}`, `${key} is required`);
+      return;
+    }
+    if (!(typeof v === 'number' && Number.isInteger(v) && v >= 1))
+      this.err(`${path}/${key}`, `${key} must be an integer of at least 1`);
   }
 
   transition(v: unknown, path: string, targets: Array<{ to: string; path: string }>) {
@@ -181,9 +195,16 @@ export function validateManual(input: unknown): ValidationResult {
           }
           if (!isObj(f)) c.err(`${p}/${k}`, `${k} must be an object`);
           else {
-            c.str(f, 'path', `${p}/${k}`, true);
+            c.str(f, 'path', `${p}/${k}`);
+            c.str(f, 'data', `${p}/${k}`);
+            if (!nonEmpty(f.path) && !nonEmpty(f.data))
+              c.err(`${p}/${k}`, 'either path or data is required');
+            if (isStr(f.data) && !/^data:/.test(f.data))
+              c.err(`${p}/${k}/data`, 'data must be a data URL ("data:…")');
             c.str(f, 'mediaType', `${p}/${k}`);
             c.str(f, 'hash', `${p}/${k}`);
+            c.pixels(f, 'width', `${p}/${k}`);
+            c.pixels(f, 'height', `${p}/${k}`);
           }
         }
         c.str(a, 'alt', p);
@@ -284,6 +305,25 @@ export function validateManual(input: unknown): ValidationResult {
       if (isStr(s.assetRef)) assetRefs.push({ id: s.assetRef, path: `${p}/assetRef` });
       c.admonitions(s, p);
       c.refs(s, 'scopeRefs', p, c.usedScopes);
+      if (s.capture !== undefined) {
+        const cp = `${p}/capture`;
+        if (!isObj(s.capture)) c.err(cp, 'capture must be an object');
+        else {
+          c.str(s.capture, 'url', cp, true);
+          if (s.capture.viewport !== undefined) {
+            if (!isObj(s.capture.viewport)) c.err(`${cp}/viewport`, 'viewport must be an object');
+            else {
+              c.pixels(s.capture.viewport, 'width', `${cp}/viewport`, true);
+              c.pixels(s.capture.viewport, 'height', `${cp}/viewport`, true);
+            }
+          }
+          if (
+            s.capture.capturedAt !== undefined &&
+            !(isStr(s.capture.capturedAt) && ISO_DATE_TIME.test(s.capture.capturedAt))
+          )
+            c.err(`${cp}/capturedAt`, 'capturedAt must be an ISO 8601 date-time');
+        }
+      }
       const outs: string[] = [];
       if (!Array.isArray(s.hotspots))
         c.err(`${p}/hotspots`, 'hotspots is required and must be an array');
@@ -313,6 +353,10 @@ export function validateManual(input: unknown): ValidationResult {
           if (h.transition !== undefined) {
             c.transition(h.transition, `${hp}/transition`, transitions);
             if (isObj(h.transition) && nonEmpty(h.transition.to)) outs.push(h.transition.to);
+          }
+          if (h.capture !== undefined) {
+            if (!isObj(h.capture)) c.err(`${hp}/capture`, 'capture must be an object');
+            else c.str(h.capture, 'selector', `${hp}/capture`, true);
           }
         });
       if (id) flow.screens.set(id, outs);

@@ -73,6 +73,8 @@ export type AdmonitionLevel = 'warning' | 'caution' | 'note';
 
 export interface Admonition {
   level: AdmonitionLevel;
+  /** 見出し（任意。0.2.0 で追加） */
+  title?: string;
   text: string;
 }
 
@@ -96,7 +98,10 @@ export interface Step {
   children?: Step[];
 }
 
-/** 画面（スクリーンショット）1 枚と、その上の操作できる場所 */
+/**
+ * 画面 1 枚と、その上の操作できる場所。
+ * 画像はスクリーンショットに限らない。操作パネルの写真や分解図の上にホットスポットを置いてもよい。
+ */
 export interface Screen {
   id: string;
   /** 表示用の短い名前（"STEP1" など） */
@@ -106,6 +111,18 @@ export interface Screen {
   admonitions?: Admonition[];
   hotspots: Hotspot[];
   scopeRefs?: string[];
+  /** Web アプリの画面を撮ったときの記録（任意。0.2.0 で追加）。撮り直しと差分の検出に使う */
+  capture?: ScreenCapture;
+}
+
+/** 画面を撮ったときの記録 */
+export interface ScreenCapture {
+  /** 撮った画面の URL */
+  url: string;
+  /** 撮ったときのブラウザーの表示領域の大きさ（CSS ピクセル） */
+  viewport?: { width: number; height: number };
+  /** 撮った日時（ISO 8601。例: 2026-11-08T03:30:00+09:00） */
+  capturedAt?: string;
 }
 
 export type HotspotShape = 'rect' | 'circle' | 'poly';
@@ -122,6 +139,14 @@ export interface Hotspot {
   coords: number[];
   action?: HotspotAction;
   transition?: Transition;
+  /** 撮り直したときに同じ要素を探すための手がかり（任意。0.2.0 で追加） */
+  capture?: HotspotCapture;
+}
+
+/** ホットスポットの元になった要素の手がかり */
+export interface HotspotCapture {
+  /** CSS セレクター */
+  selector: string;
 }
 
 export interface Transition {
@@ -136,11 +161,22 @@ export interface Transition {
 
 export type AssetKind = 'image' | 'video' | 'model3d' | 'document';
 
+/**
+ * 素材のファイル。path（ファイル名または URL）と data（data URL）のどちらか一方は必ず持つ。
+ * 0.1.0 では path に data URL を入れていた。0.2.0 からは data に入れる（path に入っていても読める）。
+ */
 export interface AssetFile {
-  path: string;
+  /** ファイル名（マニュアルの JSON からの相対パス）または URL */
+  path?: string;
+  /** 内容を埋め込むときの data URL（"data:image/png;base64,…"） */
+  data?: string;
   mediaType?: string;
   /** 内容のハッシュ（"sha256:…"）。変更の検出に使う */
   hash?: string;
+  /** 画像・動画の元の幅（ピクセル）。表示の縮尺に合わせて coords を変換するときに使う */
+  width?: number;
+  /** 画像・動画の元の高さ（ピクセル） */
+  height?: number;
 }
 
 /** 素材。source が原本、display が表示用の変換物（3D の glTF、動画のサムネイルなど） */
