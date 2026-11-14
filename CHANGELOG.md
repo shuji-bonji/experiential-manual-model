@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 (未リリース)
+
+実在の技術マニュアルを写して分かった不足のうち、作業前の要件とホットスポットの説明を足しました（s1000d-stack の design/manual-model-0.3.0.md、notes/tm-eval-requests.md の M-1・M-2・M-3）。追加だけで、0.2.0 の JSON はそのまま読めます。
+
+### 追加
+
+- `Topic.prerequisites`（任意）: 手順（`procedure`）と困ったとき（`troubleshooting`）の作業前の要件。区分は 7 つで、どれも任意です
+  - `conditions`: 作業を始める条件。`{ text, topicRef? }`（`topicRef` は、条件を満たす手順がある Topic の id）
+  - `personnel`: 必要な人員。`{ role, count? }`（`count` は 1 以上の整数）
+  - `references`: 参照する文書。`{ title, code?, topicRef? }`
+  - `equipment`（試験器材・工具）、`supplies`（材料・消耗品）、`spares`（予備品）: `{ name, quantity?, unit?, partNumber?, manufacturerCode?, note? }`
+  - `safety`: 作業全体にかかる警告・注意・備考（`Admonition` の配列）。閲覧ソフトは手順の先頭に表示します
+- `Hotspot.description`（任意）: 説明。`label` には名前だけを書きます
+- `Hotspot.callout`（任意）: 図の引き出し線の番号・記号
+- `validateManual`: `prerequisites` の形と、`topicRef` が Topic の id であることを検査します（誤り）。説明・画面の流れの Topic に `prerequisites` があるときは、表示する場所が無いので警告にします
+- 券売機の例の「前面扉を開ける」に `prerequisites` を、最初のホットスポットに `description` と `callout` を足し、テストを 14 件に
+
 ## 0.2.0 (未リリース)
 
 作成ツール・閲覧部品の設計（s1000d-stack の design/player-and-editor.md 6 節、notes/editor-and-viewer-study.md 6 節）で必要になった項目の追加。追加だけで、0.1.0 の JSON はそのまま読めます。

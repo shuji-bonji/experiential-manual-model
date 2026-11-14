@@ -47,6 +47,69 @@ export interface Topic {
   screens?: Screen[];
   /** screenFlow で最初に表示する画面の id */
   startScreenRef?: string;
+  /** 作業前の要件。kind が procedure / troubleshooting の Topic で使う（0.3.0 で追加） */
+  prerequisites?: Prerequisites;
+}
+
+/**
+ * 作業を始める前に満たすこと・用意するもの（0.3.0 で追加）。区分は 7 つ。
+ * 閲覧ソフトは、手順の先頭に safety（安全の要件）と残りの区分を表示する。
+ */
+export interface Prerequisites {
+  /** 機材の状態など、作業を始める条件 */
+  conditions?: PrerequisiteCondition[];
+  /** 必要な人員 */
+  personnel?: PersonnelRequirement[];
+  /** 参照する文書 */
+  references?: DocumentReference[];
+  /** 試験器材・工具 */
+  equipment?: RequiredItem[];
+  /** 材料・消耗品 */
+  supplies?: RequiredItem[];
+  /** 交換する部品（予備品） */
+  spares?: RequiredItem[];
+  /** 作業全体にかかる警告・注意・備考 */
+  safety?: Admonition[];
+}
+
+/** 作業を始める条件 */
+export interface PrerequisiteCondition {
+  text: string;
+  /** 条件を満たす手順が別の Topic にあるとき、その Topic の id */
+  topicRef?: string;
+}
+
+/** 必要な人員 */
+export interface PersonnelRequirement {
+  /** 役割（例: 操作員、補助者） */
+  role: string;
+  /** 人数（1 以上の整数） */
+  count?: number;
+}
+
+/** 参照する文書 */
+export interface DocumentReference {
+  /** 文書の題名 */
+  title: string;
+  /** 文書の番号（規格や手引きの番号など） */
+  code?: string;
+  /** このマニュアルの中の Topic を指すとき、その id */
+  topicRef?: string;
+}
+
+/** 用意するもの 1 つ（試験器材・工具、材料・消耗品、予備品に共通） */
+export interface RequiredItem {
+  name: string;
+  /** 数量（"1"、"0.5" など。単位は unit に書く） */
+  quantity?: string;
+  /** 数量の単位（"本"、"L" など） */
+  unit?: string;
+  /** 部品番号・型番 */
+  partNumber?: string;
+  /** 製造者のコード */
+  manufacturerCode?: string;
+  /** 補足（どの一覧の何番の品目か、など） */
+  note?: string;
 }
 
 export type BlockKind = 'section' | 'para' | 'list' | 'table' | 'figure' | 'admonition';
@@ -134,7 +197,12 @@ export type HotspotAction = 'press' | 'input' | 'read';
  */
 export interface Hotspot {
   id: string;
+  /** 名前（"[Exit]"、"エンジン制御スイッチ" など）。説明は description に、図の番号は callout に書く */
   label?: string;
+  /** 説明（"メイン画面に戻る" など。0.3.0 で追加） */
+  description?: string;
+  /** 図の引き出し線の番号・記号（"3"、"A" など。0.3.0 で追加） */
+  callout?: string;
   shape: HotspotShape;
   coords: number[];
   action?: HotspotAction;

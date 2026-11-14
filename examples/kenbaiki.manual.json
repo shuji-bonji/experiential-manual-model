@@ -163,6 +163,8 @@
             {
               "id": "hs-top-transfer",
               "label": "乗換案内から購入",
+              "description": "乗る駅と降りる駅から、きっぷを選ぶ",
+              "callout": "1",
               "shape": "rect",
               "coords": [653, 177, 1203, 364],
               "action": "press",
@@ -274,6 +276,59 @@
       "title": "前面扉を開ける（係員）",
       "summary": "保守のために前面扉を開ける手順。",
       "scopeRefs": ["scope-mv50", "scope-mv60"],
+      "prerequisites": {
+        "conditions": [
+          {
+            "text": "券売機が発売を停止していること。"
+          },
+          {
+            "text": "画面の操作を知っていること。",
+            "topicRef": "topic-buy"
+          }
+        ],
+        "personnel": [
+          {
+            "role": "係員",
+            "count": 1
+          }
+        ],
+        "references": [
+          {
+            "title": "指定席券売機 保守の手引き",
+            "code": "KB-M-001"
+          },
+          {
+            "title": "きっぷが出ないとき",
+            "topicRef": "topic-no-ticket"
+          }
+        ],
+        "equipment": [
+          {
+            "name": "保守鍵",
+            "quantity": "1",
+            "unit": "本",
+            "partNumber": "KEY-01",
+            "manufacturerCode": "K0001"
+          }
+        ],
+        "supplies": [
+          {
+            "name": "ウエス",
+            "note": "汚れを拭くときに使う"
+          }
+        ],
+        "safety": [
+          {
+            "level": "warning",
+            "title": "感電",
+            "text": "扉の内側には電圧がかかっている部分がある。指定された場所以外に触れない。"
+          },
+          {
+            "level": "caution",
+            "text": "扉は重いので、開けるときは両手で支える。"
+          }
+        ]
+      },
       "steps": [
         {
           "id": "stp-open-1",

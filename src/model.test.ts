@@ -154,6 +154,59 @@ describe('validateManual の検査', () => {
     expect(schemaValidate(m)).toBe(false);
   });
 
+  it('0.3.0 の項目（prerequisites、Hotspot.description / callout）を検査する', () => {
+    const m = clone();
+    const topic = m.topics[2];
+    expect(Object.keys(topic.prerequisites!)).toEqual([
+      'conditions',
+      'personnel',
+      'references',
+      'equipment',
+      'supplies',
+      'safety',
+    ]);
+    expect(topic.prerequisites!.safety!.map((a) => a.level)).toEqual(['warning', 'caution']);
+    expect(m.topics[1].screens![0].hotspots[0]).toMatchObject({
+      label: '乗換案内から購入',
+      description: '乗る駅と降りる駅から、きっぷを選ぶ',
+      callout: '1',
+    });
+    // 0.3.0 の項目が無い 0.2.0 の JSON は、そのまま通る
+    const old = clone();
+    delete old.topics[2].prerequisites;
+    delete old.topics[1].screens![0].hotspots[0].description;
+    delete old.topics[1].screens![0].hotspots[0].callout;
+    expect(validateManual(old)).toMatchObject({ ok: true, warnings: [] });
+    expect(schemaValidate(old)).toBe(true);
+
+    const pre = topic.prerequisites!;
+    pre.conditions![1].topicRef = 'topic-nowhere';
+    (pre.conditions![0] as { text?: string }).text = undefined;
+    pre.personnel![0].count = 0;
+    (pre.references![0] as { title?: string }).title = undefined;
+    (pre.equipment![0] as { name?: string }).name = undefined;
+    (pre.supplies![0] as { quantity: unknown }).quantity = 2;
+    (pre.safety![0] as { level: string }).level = 'danger';
+    (m.topics[1].screens![0].hotspots[0] as { callout: unknown }).callout = 1;
+    // 説明の Topic に置いた prerequisites は、表示する場所が無いので警告
+    m.topics[0].prerequisites = { conditions: [{ text: '電源が入っていること。' }] };
+    const r = validateManual(m);
+    expect(r.errors.map((e) => `${e.path}: ${e.message}`)).toEqual([
+      '/topics/1/screens/0/hotspots/0/callout: callout must be a string',
+      '/topics/2/prerequisites/conditions/0/text: text is required',
+      '/topics/2/prerequisites/personnel/0/count: count must be an integer of at least 1',
+      '/topics/2/prerequisites/references/0/title: title is required',
+      '/topics/2/prerequisites/equipment/0/name: name is required',
+      '/topics/2/prerequisites/supplies/0/quantity: quantity must be a string',
+      '/topics/2/prerequisites/safety/0/level: level must be one of warning / caution / note',
+      '/topics/2/prerequisites/conditions/1/topicRef: topicRef "topic-nowhere" is not a topic id',
+    ]);
+    expect(r.warnings.map((w) => `${w.path}: ${w.message}`)).toEqual([
+      '/topics/0/prerequisites: prerequisites are shown only for procedure and troubleshooting topics',
+    ]);
+    expect(schemaValidate(JSON.parse(JSON.stringify(m)))).toBe(false);
+  });
+
   it('オブジェクトでなければ 1 つの error、assertManual は投げる', () => {
     expect(validateManual('x').errors).toHaveLength(1);
     expect(() => assertManual({})).toThrow(/Invalid manual/);

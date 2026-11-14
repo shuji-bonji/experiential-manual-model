@@ -20,10 +20,11 @@ A common data model for "experiential operation manuals", which let you learn ho
 ```mermaid
 classDiagram
   class Manual { id; title; version; language; scopes; topics; assets; glossary }
-  class Topic { id; kind; title; summary; blocks; steps; screens; startScreenRef }
+  class Topic { id; kind; title; summary; blocks; steps; screens; startScreenRef; prerequisites }
+  class Prerequisites { conditions; personnel; references; equipment; supplies; spares; safety }
   class Step { id; text; targetRef; expected; admonitions; assetRefs; scopeRefs; next; question; answers; children }
   class Screen { id; caption; assetRef; description; admonitions; hotspots; capture }
-  class Hotspot { id; label; shape; coords; action; transition; capture }
+  class Hotspot { id; label; description; callout; shape; coords; action; transition; capture }
   class Transition { to; condition; when; label }
   class Asset { id; kind; source; display; alt }
   class AssetFile { path; data; mediaType; hash; width; height }
@@ -34,6 +35,7 @@ classDiagram
   Manual --> Scope
   Topic --> Step
   Topic --> Screen
+  Topic --> Prerequisites
   Screen --> Hotspot
   Hotspot --> Transition
   Step --> Transition
@@ -46,6 +48,8 @@ classDiagram
 - `Asset.source` is the original, and `Asset.display` is the derived form used for display (for example, an original JT 3D model and a glTF for display).
 - An `AssetFile` has either `path` (a path relative to the manual JSON, or a URL) or `data` (a data URL that embeds the content). `width` / `height` give the original size of an image in pixels, used to scale hotspot coordinates to the displayed size.
 - `Screen.capture` (the URL, viewport size and time of the capture) and `Hotspot.capture` (a CSS selector) are hints for re-capturing the screens of a web application. Both are optional.
+- `Topic.prerequisites` holds what a `procedure` or `troubleshooting` topic needs before the work starts, in seven groups: `conditions` (what must be true before starting), `personnel`, `references` (documents to refer to), `equipment` (test equipment and tools), `supplies` (materials and consumables), `spares` (replacement parts) and `safety` (warnings, cautions and notes that apply to the whole task). All of them are optional.
+- `Hotspot.label` is the name only. Put the explanation in `description` and the callout number of the figure in `callout`.
 - Procedure numbers are not stored. `numberSteps` builds them at display time.
 
 ## Usage

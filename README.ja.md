@@ -20,10 +20,11 @@
 ```mermaid
 classDiagram
   class Manual { id; title; version; language; scopes; topics; assets; glossary }
-  class Topic { id; kind; title; summary; blocks; steps; screens; startScreenRef }
+  class Topic { id; kind; title; summary; blocks; steps; screens; startScreenRef; prerequisites }
+  class Prerequisites { conditions; personnel; references; equipment; supplies; spares; safety }
   class Step { id; text; targetRef; expected; admonitions; assetRefs; scopeRefs; next; question; answers; children }
   class Screen { id; caption; assetRef; description; admonitions; hotspots; capture }
-  class Hotspot { id; label; shape; coords; action; transition; capture }
+  class Hotspot { id; label; description; callout; shape; coords; action; transition; capture }
   class Transition { to; condition; when; label }
   class Asset { id; kind; source; display; alt }
   class AssetFile { path; data; mediaType; hash; width; height }
@@ -34,6 +35,7 @@ classDiagram
   Manual --> Scope
   Topic --> Step
   Topic --> Screen
+  Topic --> Prerequisites
   Screen --> Hotspot
   Hotspot --> Transition
   Step --> Transition
@@ -46,6 +48,8 @@ classDiagram
 - `Asset.source` が原本、`Asset.display` が表示用の変換物です（3D の原本 JT と表示用の glTF、など）。
 - `AssetFile` は `path`（マニュアルの JSON からの相対パスか URL）と `data`（内容を埋め込む data URL）のどちらか一方を必ず持ちます。`width` / `height` は画像の元の大きさ（ピクセル）で、表示の縮尺に合わせてホットスポットの座標を変換するときに使います。
 - `Screen.capture`（撮った URL・表示領域の大きさ・日時）と `Hotspot.capture`（CSS セレクター）は、Web アプリの画面を撮り直すときの手がかりです。どちらも任意です。
+- `Topic.prerequisites` は、手順（`procedure`）と困ったとき（`troubleshooting`）の作業前の要件です。区分は 7 つあります: `conditions`（作業を始める条件）、`personnel`（人員）、`references`（参照する文書）、`equipment`（試験器材・工具）、`supplies`（材料・消耗品）、`spares`（予備品）、`safety`（作業全体にかかる警告・注意・備考）。どれも任意です。
+- `Hotspot.label` には名前だけを書きます。説明は `description` に、図の引き出し線の番号は `callout` に書きます。
 - 手順の番号は保存しません。`numberSteps` で表示時に組み立てます。
 
 ## 使い方

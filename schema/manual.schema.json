@@ -193,6 +193,9 @@
         },
         "startScreenRef": {
           "$ref": "#/$defs/id"
+        },
+        "prerequisites": {
+          "$ref": "#/$defs/prerequisites"
         }
       }
     },
@@ -356,6 +359,12 @@
           "$ref": "#/$defs/id"
         },
         "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "callout": {
           "type": "string"
         },
         "shape": {
@@ -564,6 +573,126 @@
         "selector": {
           "type": "string",
           "minLength": 1
+        }
+      }
+    },
+    "prerequisites": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prerequisiteCondition"
+          }
+        },
+        "personnel": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/personnelRequirement"
+          }
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/documentReference"
+          }
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requiredItem"
+          }
+        },
+        "supplies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requiredItem"
+          }
+        },
+        "spares": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requiredItem"
+          }
+        },
+        "safety": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/admonition"
+          }
+        }
+      }
+    },
+    "prerequisiteCondition": {
+      "type": "object",
+      "required": ["text"],
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "topicRef": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "personnelRequirement": {
+      "type": "object",
+      "required": ["role"],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "documentReference": {
+      "type": "object",
+      "required": ["title"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code": {
+          "type": "string"
+        },
+        "topicRef": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "requiredItem": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quantity": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "partNumber": {
+          "type": "string"
+        },
+        "manufacturerCode": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
         }
       }
     }

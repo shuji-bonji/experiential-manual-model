@@ -2,8 +2,9 @@
  * マニュアルの検査。実行時の依存を増やさないため、形の検査も自前で書く（JSON Schema と同じ規則）。
  *
  * - errors: 形の誤り（必須項目が無い、型が違う、列挙に無い値、coords の長さ、AssetFile に path も data も無い）、
- *   参照切れ（transition.to / assetRef / scopeRefs / targetRef / startScreenRef）、id の重複
- * - warnings: 到達できない画面、遷移の無い画面（終端でないのに次が無い）、素材の無い参照先、使われていない素材・適用範囲
+ *   参照切れ（transition.to / assetRef / scopeRefs / targetRef / startScreenRef / prerequisites の topicRef）、id の重複
+ * - warnings: 到達できない画面、遷移の無い画面（終端でないのに次が無い）、素材の無い参照先、使われていない素材・適用範囲、
+ *   手順・困ったとき以外の Topic に置いた prerequisites
  */
 import type { Manual } from './types.js';
 
@@ -102,12 +103,12 @@ class Checker {
     if (Array.isArray(v)) for (const s of v) if (isStr(s)) collect.add(s);
   }
 
-  admonitions(o: Obj, path: string) {
-    const v = o.admonitions;
+  admonitions(o: Obj, path: string, key = 'admonitions') {
+    const v = o[key];
     if (v === undefined) return;
-    if (!Array.isArray(v)) return this.err(`${path}/admonitions`, 'admonitions must be an array');
+    if (!Array.isArray(v)) return this.err(`${path}/${key}`, `${key} must be an array`);
     v.forEach((a, i) => {
-      const p = `${path}/admonitions/${i}`;
+      const p = `${path}/${key}/${i}`;
       if (!isObj(a)) return this.err(p, 'admonition must be an object');
       this.enumOf(a, 'level', LEVELS, p, true);
       this.str(a, 'title', p);
@@ -115,7 +116,19 @@ class Checker {
     });
   }
 
-  /** 1 以上の整数（ピクセルの大きさ） */
+  /** 配列の各要素（オブジェクト）を検査する */
+  objects(o: Obj, key: string, path: string, each: (item: Obj, p: string) => void) {
+    const v = o[key];
+    if (v === undefined) return;
+    if (!Array.isArray(v)) return this.err(`${path}/${key}`, `${key} must be an array`);
+    v.forEach((item, i) => {
+      const p = `${path}/${key}/${i}`;
+      if (!isObj(item)) return this.err(p, `${key} item must be an object`);
+      each(item, p);
+    });
+  }
+
+  /** 1 以上の整数（ピクセルの大きさ、人数） */
   pixels(o: Obj, key: string, path: string, required = false) {
     const v = o[key];
     if (v === undefined) {
@@ -225,6 +238,7 @@ export function validateManual(input: unknown): ValidationResult {
   const assetRefs: Array<{ id: string; path: string }> = [];
   const targetRefs: Array<{ id: string; path: string }> = [];
   const startRefs: Array<{ id: string; path: string; screens: Set<string> }> = [];
+  const topicRefs: Array<{ id: string; path: string }> = [];
   /** 画面ごとの遷移先（到達の検査に使う） */
   const flows: Array<{ topicPath: string; screens: Map<string, string[]>; start?: string }> = [];
 
@@ -333,6 +347,8 @@ export function validateManual(input: unknown): ValidationResult {
           if (!isObj(h)) return c.err(hp, 'hotspot must be an object');
           c.id('hotspot', h.id, `${hp}/id`);
           c.str(h, 'label', hp);
+          c.str(h, 'description', hp);
+          c.str(h, 'callout', hp);
           c.enumOf(h, 'shape', SHAPES, hp, true);
           c.enumOf(h, 'action', ACTIONS, hp);
           const coords = h.coords;
@@ -363,6 +379,35 @@ export function validateManual(input: unknown): ValidationResult {
     });
   };
 
+  const checkPrerequisites = (v: unknown, path: string) => {
+    if (!isObj(v)) return c.err(path, 'prerequisites must be an object');
+    const topicRef = (o: Obj, p: string) => {
+      if (o.topicRef === undefined) return;
+      c.str(o, 'topicRef', p);
+      if (isStr(o.topicRef)) topicRefs.push({ id: o.topicRef, path: `${p}/topicRef` });
+    };
+    c.objects(v, 'conditions', path, (o, p) => {
+      c.str(o, 'text', p, true);
+      topicRef(o, p);
+    });
+    c.objects(v, 'personnel', path, (o, p) => {
+      c.str(o, 'role', p, true);
+      c.pixels(o, 'count', p);
+    });
+    c.objects(v, 'references', path, (o, p) => {
+      c.str(o, 'title', p, true);
+      c.str(o, 'code', p);
+      topicRef(o, p);
+    });
+    for (const key of ['equipment', 'supplies', 'spares'])
+      c.objects(v, key, path, (o, p) => {
+        c.str(o, 'name', p, true);
+        for (const k of ['quantity', 'unit', 'partNumber', 'manufacturerCode', 'note'])
+          c.str(o, k, p);
+      });
+    c.admonitions(v, path, 'safety');
+  };
+
   if (!Array.isArray(m.topics)) c.err('/topics', 'topics is required and must be an array');
   else
     m.topics.forEach((t, i) => {
@@ -388,6 +433,14 @@ export function validateManual(input: unknown): ValidationResult {
           });
         }
       }
+      if (t.prerequisites !== undefined) {
+        checkPrerequisites(t.prerequisites, `${p}/prerequisites`);
+        if (t.kind === 'description' || t.kind === 'screenFlow')
+          c.warn(
+            `${p}/prerequisites`,
+            'prerequisites are shown only for procedure and troubleshooting topics',
+          );
+      }
       if (t.kind === 'screenFlow' && flow.screens.size === 0)
         c.warn(p, 'screenFlow topic has no screens');
       if (t.kind === 'procedure' && !Array.isArray(t.steps))
@@ -409,6 +462,9 @@ export function validateManual(input: unknown): ValidationResult {
   for (const t of targetRefs) {
     if (!c.ids.hotspot.has(t.id) && !c.ids.block.has(t.id))
       c.warn(t.path, `targetRef "${t.id}" is not a hotspot or block id`);
+  }
+  for (const t of topicRefs) {
+    if (!c.ids.topic.has(t.id)) c.err(t.path, `topicRef "${t.id}" is not a topic id`);
   }
   for (const s of startRefs) {
     if (!s.screens.has(s.id))
