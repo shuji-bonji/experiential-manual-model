@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0 (未リリース)
+## 0.3.0 (2026-11-15)
 
 実在の技術マニュアルを写して分かった不足のうち、作業前の要件とホットスポットの説明を足しました（s1000d-stack の design/manual-model-0.3.0.md、notes/tm-eval-requests.md の M-1・M-2・M-3）。追加だけで、0.2.0 の JSON はそのまま読めます。
 
@@ -17,7 +17,7 @@
 - `validateManual`: `prerequisites` の形と、`topicRef` が Topic の id であることを検査します（誤り）。説明・画面の流れの Topic に `prerequisites` があるときは、表示する場所が無いので警告にします
 - 券売機の例の「前面扉を開ける」に `prerequisites` を、最初のホットスポットに `description` と `callout` を足し、テストを 14 件に
 
-## 0.2.0 (未リリース)
+## 0.2.0 (2026-11-08)
 
 作成ツール・閲覧部品の設計（s1000d-stack の design/player-and-editor.md 6 節、notes/editor-and-viewer-study.md 6 節）で必要になった項目の追加。追加だけで、0.1.0 の JSON はそのまま読めます。
 
