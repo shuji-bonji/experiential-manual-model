@@ -108,6 +108,11 @@ export interface RequiredItem {
   partNumber?: string;
   /** 製造者のコード */
   manufacturerCode?: string;
+  /**
+   * NATO 物品番号（NSN）。数字 13 桁で、"6850-00-181-7933" のように 4-2-3-4 桁をハイフンで区切って書ける（0.4.0 で追加）。
+   * 元の文書が部品番号ではなく NSN で品目を示しているときに使う
+   */
+  natoStockNumber?: string;
   /** 補足（どの一覧の何番の品目か、など） */
   note?: string;
 }

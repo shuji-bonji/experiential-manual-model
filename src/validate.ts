@@ -32,6 +32,8 @@ const SHAPES = ['rect', 'circle', 'poly'];
 const ACTIONS = ['press', 'input', 'read'];
 const ASSET_KINDS = ['image', 'video', 'model3d', 'document'];
 /** ISO 8601 の日時（秒・小数・時差は任意。JSON Schema の pattern と同じ） */
+/** NATO 物品番号（NSN）: 数字 13 桁。4-2-3-4 桁の間にハイフンを書ける */
+const NSN = /^\d{4}-?\d{2}-?\d{3}-?\d{4}$/;
 const ISO_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?$/;
 
 class Checker {
@@ -402,8 +404,20 @@ export function validateManual(input: unknown): ValidationResult {
     for (const key of ['equipment', 'supplies', 'spares'])
       c.objects(v, key, path, (o, p) => {
         c.str(o, 'name', p, true);
-        for (const k of ['quantity', 'unit', 'partNumber', 'manufacturerCode', 'note'])
+        for (const k of [
+          'quantity',
+          'unit',
+          'partNumber',
+          'manufacturerCode',
+          'natoStockNumber',
+          'note',
+        ])
           c.str(o, k, p);
+        if (isStr(o.natoStockNumber) && !NSN.test(o.natoStockNumber))
+          c.err(
+            `${p}/natoStockNumber`,
+            'natoStockNumber must be 13 digits, optionally written as 4-2-3-4 with hyphens (e.g. "6850-00-181-7933")',
+          );
       });
     c.admonitions(v, path, 'safety');
   };

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 (2026-11-15)
+
+実在の技術マニュアルの消耗品の一覧が、品目を部品番号ではなく NATO 物品番号（NSN）で示していたので、品目に NSN の項目を足しました（s1000d-stack の notes/tm-eval-progress.md）。追加だけで、0.3.0 の JSON はそのまま読めます。
+
+### 追加
+
+- `Topic.prerequisites` の `equipment`・`supplies`・`spares` の品目に `natoStockNumber`（任意）: NATO 物品番号（NSN）。数字 13 桁で、`6850-00-181-7933` のように 4-2-3-4 桁をハイフンで区切って書けます
+- `validateManual` と JSON Schema: `natoStockNumber` が 13 桁の数字（ハイフンは 4-2-3-4 桁の間だけ）でなければ誤りにします
+- テストを 15 件に
+
 ## 0.3.0 (2026-11-15)
 
 実在の技術マニュアルを写して分かった不足のうち、作業前の要件とホットスポットの説明を足しました（s1000d-stack の design/manual-model-0.3.0.md、notes/tm-eval-requests.md の M-1・M-2・M-3）。追加だけで、0.2.0 の JSON はそのまま読めます。

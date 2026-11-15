@@ -207,6 +207,26 @@ describe('validateManual の検査', () => {
     expect(schemaValidate(JSON.parse(JSON.stringify(m)))).toBe(false);
   });
 
+  it('0.4.0 の項目（品目の natoStockNumber）を検査する', () => {
+    const m = clone();
+    const supplies = m.topics[2].prerequisites!.supplies!;
+    // ハイフンで区切った形と、数字だけの形のどちらも通る
+    supplies[0].natoStockNumber = '7920-00-140-0869';
+    m.topics[2].prerequisites!.equipment![0].natoStockNumber = '5120001234567';
+    expect(validateManual(m)).toMatchObject({ ok: true, warnings: [] });
+    expect(schemaValidate(m)).toBe(true);
+
+    supplies[0].natoStockNumber = '7920-00-140-869';
+    (m.topics[2].prerequisites!.equipment![0] as { natoStockNumber: unknown }).natoStockNumber =
+      5120001234567;
+    const r = validateManual(m);
+    expect(r.errors.map((e) => `${e.path}: ${e.message}`)).toEqual([
+      '/topics/2/prerequisites/equipment/0/natoStockNumber: natoStockNumber must be a string',
+      '/topics/2/prerequisites/supplies/0/natoStockNumber: natoStockNumber must be 13 digits, optionally written as 4-2-3-4 with hyphens (e.g. "6850-00-181-7933")',
+    ]);
+    expect(schemaValidate(JSON.parse(JSON.stringify(m)))).toBe(false);
+  });
+
   it('オブジェクトでなければ 1 つの error、assertManual は投げる', () => {
     expect(validateManual('x').errors).toHaveLength(1);
     expect(() => assertManual({})).toThrow(/Invalid manual/);
